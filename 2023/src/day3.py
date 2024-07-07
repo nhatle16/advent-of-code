@@ -1,12 +1,18 @@
-# # DAY3 - ADVENT OF CODE
-# # https://adventofcode.com/2023/day/3
+# DAY3 - ADVENT OF CODE
+# https://adventofcode.com/2023/day/3
 
 from typing import List
+import os
 
 # PART ONE
 class Part1():    
     def __init__(self, file_name):
-        with open(file=file_name, mode='r') as f:
+        current_dir = os.path.dirname(__file__)
+        parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
+        input_dir = os.path.join(parent_dir, 'input')
+        file_path = os.path.join(input_dir, file_name)
+        
+        with open(file=file_path, mode='r') as f:
             self.schematic = [list(line.strip()) for line in f]
             self.n = len(self.schematic)
             self.m = len(self.schematic[0])
@@ -50,7 +56,12 @@ class Part1():
 # PART TWO
 class Part2():    
     def __init__(self, file_name):
-        with open (file=file_name, mode='r') as fin:
+        current_dir = os.path.dirname(__file__)
+        parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
+        input_dir = os.path.join(parent_dir, 'input')
+        file_path = os.path.join(input_dir, file_name)
+        
+        with open (file=file_path, mode='r') as fin:
             self.schematic = [list(line.strip()) for line in fin]
             self.n = len(self.schematic)
             self.m = len(self.schematic[0])
@@ -95,10 +106,3 @@ class Part2():
                     sum += (nums[0] * nums[1])  
         
         return sum
-    
-if __name__ == "__main__":
-    file_name = "aoc3.txt"
-    ob1 = Part1(file_name=file_name)
-    print(ob1.sum_part_numbers())
-    ob2 = Part2(file_name=file_name)
-    print(ob2.sum_part_numbers())

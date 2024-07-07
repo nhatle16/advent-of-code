@@ -1,9 +1,14 @@
 # DAY2 - ADVENT OF CODE 2023
 # https://adventofcode.com/2023/day/2
 
+import os
 class Solution():
     # PART ONE
-    def sum_of_id(self, file_game) -> int:
+    def sum_of_id(self, file_name) -> int:
+        current_dir = os.path.dirname(__file__)
+        parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
+        file_game = os.path.join(parent_dir, 'input', file_name)
+        
         sum_id = 0
         with open(file_game, 'r') as f:
             for line in f:
@@ -27,7 +32,11 @@ class Solution():
         return sum_id  
     
     # PART TWO
-    def sum_of_id2(self, file_game) -> int:
+    def sum_of_id2(self, file_name) -> int:
+        current_dir = os.path.dirname(__file__)
+        parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
+        file_game = os.path.join(parent_dir, 'input', file_name)
+        
         power = 0
         with open(file_game, 'r') as f:
             for line in f:
@@ -44,9 +53,3 @@ class Solution():
                 
                 power += (color_dict['red'] * color_dict['green'] * color_dict['blue'])
         return power
-    
-    
-if __name__ == "__main__":
-    file_name = "test.txt"
-    ob = Solution()
-    print(ob.sum_of_id2(file_game=file_name))

@@ -56,4 +56,4 @@ class Solution():
                                 seeds[i] = dest
                                 break            
                         
-        return min(seeds)
+        return min(seeds) 

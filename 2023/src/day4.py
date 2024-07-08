@@ -81,3 +81,4 @@ class Solution():
     
     def solve_part2(self):
         return self.count_scratchcards()
+ 

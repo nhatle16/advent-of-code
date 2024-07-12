@@ -11,7 +11,7 @@ class Solution():
         '''        
         if start_src + range <= src or src < start_src:
             return src, False
-        return src - (start_src - start_des), True
+        return start_des + (src - start_src), True
     
     def get_seed(self, line: str) -> List[int]:
         '''
@@ -49,6 +49,7 @@ class Solution():
                         numbers = [int(x) for x in current_line.split()]
                         maps.append(numbers)
                     
+                    # Start mapping the current category to destination category
                     for i in range(len(seeds)):
                         for line in maps:
                             dest, flag = self.calculate_dest(src=seeds[i], start_des=line[0], start_src=line[1], range=line[2])
@@ -57,3 +58,53 @@ class Solution():
                                 break            
                         
         return min(seeds) 
+    
+    # get seeds according to part 2 description
+    def get_seed2(self, line: str) -> List[int]:
+        info = [int(x) for x in line.split()[1:]]
+        seeds = []
+        for i in range(0, len(info), 2):
+            seed, rng = info[i], info[i+1]
+            seeds.extend(range(seed, seed + rng))
+        return seeds
+        
+        
+    def solve_part2(self, file_name) -> int:
+        # Retrieve the path to input file from another package
+        current_dir = os.path.dirname(__file__)
+        parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
+        input_file = os.path.join(parent_dir, 'input', file_name)
+        
+        with open(file=input_file, mode='r') as fin:
+            # First line contains the seed numbers
+            seeds = self.get_seed2(fin.readline().strip())
+            while True:
+                current_line = fin.readline()
+
+                # Check if it reads the end of file
+                if not current_line:
+                    break
+                
+                # Remove the endline character
+                current_line = current_line.strip()
+        
+                if current_line.endswith("map:"):
+                    maps = []
+                    
+                    # Dive into the maps and retrieve information for mapping
+                    while True:
+                        current_line = fin.readline().strip()
+                        if not current_line:
+                            break
+                        numbers = [int(x) for x in current_line.split()]
+                        maps.append(numbers)
+                    
+                    # Start mapping the current category to destination category
+                    for i in range(len(seeds)):
+                        for line in maps:
+                            dest, flag = self.calculate_dest(src=seeds[i], start_des=line[0], start_src=line[1], range=line[2])
+                            if flag:
+                                seeds[i] = dest
+                                break            
+                        
+        return min(seeds)

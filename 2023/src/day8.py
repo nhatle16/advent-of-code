@@ -31,6 +31,7 @@ class Solution():
                     
         return instruction, network
     
+    # PART ONE
     def find_steps(self, inst: str, net: dict) -> int:
         step, i, n = 0, 0, len(inst)
         start = "AAA"
@@ -49,7 +50,7 @@ class Solution():
         return self.find_steps(inst=instruction, net=network)
     
     
-    
+    # PART TWO
     def find_steps2(self, inst: str, net: dict) -> int:
         starts = [key for key in net.keys() if key.endswith('A')]
         step, i, n = 0, 0, len(inst)
@@ -71,9 +72,3 @@ class Solution():
     def solve_part2(self, file_name):
         instruction, network = self.read_file(file_name=file_name)
         return self.find_steps2(inst=instruction, net=network)
-    
-if __name__ == "__main__":
-    ob = Solution()
-    file_name = input("Enter file name: ")
-    print(ob.solve_part2(file_name))
-    
